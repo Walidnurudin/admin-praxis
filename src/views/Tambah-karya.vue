@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import fom from "@/components/admin/form.vue";
+import fom from "@/components/form.vue";
 
 export default {
   components: {

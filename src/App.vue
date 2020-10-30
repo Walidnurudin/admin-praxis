@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Dashboard />
+    <Admin />
   </div>
 </template>
 
 <script>
-import Dashboard from "./views/Dashboard.vue"
+import Admin from "./views/Admin.vue"
 
 export default {
   components: {
-    Dashboard
+    Admin
   }
 }
 </script>

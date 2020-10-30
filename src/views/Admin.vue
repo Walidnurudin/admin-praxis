@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import navigasi from "@/components/admin/Navigation.vue";
+import navigasi from "@/components/Navigation.vue";
 
 export default {
   components: {
