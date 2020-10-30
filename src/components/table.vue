@@ -28,7 +28,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import * as api from "../../api/praxis";
+import * as api from "../api/praxis";
 import Swal from "sweetalert2";
 
 export default {

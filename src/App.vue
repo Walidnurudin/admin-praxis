@@ -1,15 +1,26 @@
 <template>
-  <div>
-    <Admin />
-  </div>
+  <v-app>
+    <navigasi/>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import Admin from "./views/Admin.vue"
+import navigasi from "./components/Navigation.vue"
 
 export default {
   components: {
-    Admin
+    navigasi
+  },
+  beforeCreate() {
+    
+    if (localStorage.getItem("Bearer")) {
+      scrollTo(0, 0);
+    } else {
+      this.$router.push({ name: "Home" });
+    }
   }
 }
 </script>
