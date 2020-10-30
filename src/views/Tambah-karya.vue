@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <Dashboard />
+  <div class="mt-15">
+    <fom />
   </div>
 </template>
 
 <script>
-import Dashboard from "./views/Dashboard.vue"
+import fom from "@/components/admin/form.vue";
 
 export default {
   components: {
-    Dashboard
+    fom
   }
-}
+};
 </script>
 
 <style>
-
 </style>
