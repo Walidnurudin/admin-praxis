@@ -18,6 +18,11 @@ const routes = [
     path: '/tampil-table',
     name: 'Tampil-table',
     component: () => import("../views/Tampil-table.vue")
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import("../views/Login.vue")
   }
 ]
 
