@@ -15,7 +15,7 @@
                   <v-text-field
                     label="Username"
                     name="username"
-                    v-model="form.usernameOrEmail"
+                    v-model="form.email"
                     prepend-icon="mdi-account"
                     type="text"
                     :rules="nameVal"
@@ -59,7 +59,7 @@ export default {
     return {
       isLoading: false,
       form: {
-        usernameOrEmail: "",
+        email: "",
         password: ""
       },
       nameVal: [v => !!v || "required"],
@@ -70,13 +70,16 @@ export default {
     login: function() {
       if (this.$refs.form.validate()) {
         this.isLoading = true;
+        
         api.login(this.form)
           .then(res => {
-            console.log(res);
-            localStorage.setItem(res.data.tokenType, res.data.accessToken);
-            this.$store.state.token = res.data.accessToken;
+            console.log('login', res.data);
+            localStorage.setItem('Bearer', res.data.token);
+            this.$store.state.user = res.data.username;
             this.$swal("juoossss");
-            this.$router.push({ name: "Dashboard" });
+            this.$router.push({ name: "Home" });
+            console.log('user', this.$store.state.user)
+            this.isLoading = false;
           })
           .catch(err => {
             this.isLoading = false;

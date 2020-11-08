@@ -14,11 +14,23 @@
           ></v-text-field>
         </v-card-title>
 
-        <v-data-table :headers="headers" :items="gettersApiPeserta" :search="search">
+        <v-data-table
+          :headers="headers"
+          :items="gettersApiPeserta"
+          :search="search"
+        >
           <template v-slot:item.actions="{ item }">
-            <v-progress-circular v-if="isDownload" indeterminate color="primary"></v-progress-circular>
-            <v-icon class="mr-3" v-else @click="download(item.id)">mdi-arrow-down-thin-circle-outline</v-icon>
-            <v-icon class="mr-3" @click="deleteItem(item.userId)">mdi-delete</v-icon>
+            <v-progress-circular
+              v-if="isDownload"
+              indeterminate
+              color="primary"
+            ></v-progress-circular>
+            <v-icon class="mr-3" v-else @click="download(item.id)"
+              >mdi-arrow-down-thin-circle-outline</v-icon
+            >
+            <v-icon class="mr-3" @click="deleteItem(item.userId)"
+              >mdi-delete</v-icon
+            >
           </template>
         </v-data-table>
       </v-card>
@@ -39,18 +51,18 @@ export default {
         { text: "ID", value: "userId" },
         {
           text: "Nama",
-          value: "namaUser"
+          value: "namaUser",
         },
         { text: "Nama kampus", value: "namaKampus" },
         { text: "Program", value: "program" },
         { text: "Email", value: "emailUser" },
         // { text: "CV", value: "cv", sortable: false },
-        { text: "Actions", value: "actions", sortable: false }
-      ]
+        { text: "Actions", value: "actions", sortable: false },
+      ],
     };
   },
   computed: {
-    ...mapGetters(["gettersApiPeserta", "gettersCV"])
+    ...mapGetters(["gettersApiPeserta", "gettersCV"]),
   },
   methods: {
     deleteItem(id) {
@@ -59,24 +71,24 @@ export default {
         title: "Apa kamu yakin ingin menghapus?",
         showDenyButton: true,
         denyButtonText: "ga jadi",
-        confirmButtonText: `Hapus`
-      }).then(res => {
+        confirmButtonText: `Hapus`,
+      }).then((res) => {
         if (res.isConfirmed) {
           api
             .deletePeserta(id, {
               headers: {
-                Authorization: "Bearer: " + localStorage.getItem("Bearer")
-              }
+                Authorization: "Bearer: " + localStorage.getItem("Bearer"),
+              },
             })
-            .then(res => {
+            .then((res) => {
               this.$swal({
                 icon: "success",
-                title: "Berhasil dihapus"
+                title: "Berhasil dihapus",
               });
               console.log(res);
               this.$store.dispatch("getApiPeserta");
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         }
       });
     },
@@ -85,8 +97,8 @@ export default {
       api
         .downloadFiles(id, {
           headers: {
-            Authorization: "Bearer: " + localStorage.getItem("Bearer")
-          }
+            Authorization: "Bearer: " + localStorage.getItem("Bearer"),
+          },
         })
         // axios
         //   .post(`http://192.168.43.56:8080/praxis/data/download/${id}`, {
@@ -94,14 +106,15 @@ export default {
         //       Authorization: "Bearer: " + localStorage.getItem("Bearer")
         //     }
         //   })
-        .then(res => {
+        .then((res) => {
           console.log(res);
         })
-        .catch(err => console.log(err));
-    }
+        .catch((err) => console.log(err));
+    },
   },
   mounted() {
-    console.log(this.gettersApiPeserta);
-  }
+    this.$store.dispatch('getApiPeserta')
+    console.log('mount', this.gettersApiPeserta);
+  },
 };
 </script>

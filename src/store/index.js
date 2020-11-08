@@ -26,20 +26,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    getApiUser: function (state) {
-      const token = localStorage.getItem('Bearer')
-      console.log('get user', token)
-      api.getUser({
-        headers: {
-          "Authorization": "Bearer: " + token
-        }
-      })
+    login: function (state, data) {
+      api.login(data)
         .then(res => {
-          res.data
-        })
-        .then(res => {
-          console.log('get user', res)
-          state.user = res.username
+          return res.data
         })
         .catch(err => {
           console.log('err user', err)
@@ -65,21 +55,10 @@ export default new Vuex.Store({
     },
 
     getApiPeserta: function (state) {
-      const access = localStorage.getItem('Bearer')
-      console.log('ini token yg dimasukin', access)
-      api.getPeserta({
-        headers: {
-          "Authorization": "Bearer: " + access
-        }
-      })
+      api.getPeserta()
         .then(res => res.data)
         .then(data => {
           state.peserta = data;
-
-          // gabungin cv dan data peserta
-          // for (let i = 0; i < state.peserta.length; i++) {
-          //   state.peserta[i].cv = state.cv[i];
-          // }
           console.log("get api", state.peserta)
         })
         .catch(err => console.log(err))
