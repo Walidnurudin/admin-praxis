@@ -10,11 +10,6 @@ const routes = [
     component: () => import("../views/Dashboard.vue")
   },
   {
-    path: '*',
-    name: '404',
-    component: () => import('../views/404.vue')
-  },
-  {
     path: '/tambah-karya',
     name: 'Tambah-karya',
     component: () => import("../views/Tambah-karya.vue")

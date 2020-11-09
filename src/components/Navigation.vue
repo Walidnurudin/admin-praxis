@@ -10,7 +10,7 @@
       <v-menu left bottom class="mr-5">
         <template v-slot:activator="{ on, attrs }">
           <div v-bind="attrs" v-on="on" style="cursor: pointer" class="mr-5">
-            <span class="white--text">Selamat datang admin {{gettersUser}}</span>
+            <span class="white--text">Selamat datang admin </span>
             <v-icon class="ml-2">mdi-arrow-down-drop-circle-outline</v-icon>
           </div>
         </template>
@@ -45,7 +45,6 @@
 
 <script>
 import logo from "@/assets/p.png";
-import {mapGetters} from 'vuex';
 
 export default {
   methods: {
@@ -59,14 +58,6 @@ export default {
       logo,
       sideNav: false,
     };
-  },
-  computed: {
-    ...mapGetters([
-      'gettersUser'
-    ])
-  },
-  mounted(){
-    console.log(this.gettersUser)
   }
 };
 </script>

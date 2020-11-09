@@ -26,6 +26,6 @@ import navigasi from "@/components/Navigation.vue";
 export default {
   components: {
     navigasi,
-  },
+  }
 };
 </script>

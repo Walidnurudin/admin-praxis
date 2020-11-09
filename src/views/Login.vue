@@ -75,7 +75,6 @@ export default {
           .then(res => {
             console.log('login', res.data);
             localStorage.setItem('Bearer', res.data.token);
-            this.$store.state.user = res.data.username;
             this.$swal("juoossss");
             this.$router.push({ name: "Home" });
             console.log('user', this.$store.state.user)
