@@ -43,14 +43,12 @@ export default {
     return {
       search: "",
       headers: [
-        { text: "ID", value: "userId" },
         {
           text: "Nama",
           value: "namaUser",
         },
         { text: "Nama kampus", value: "namaKampus" },
         { text: "Program", value: "program" },
-        { text: "Email", value: "emailUser" },
         // { text: "CV", value: "cv", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
@@ -117,8 +115,8 @@ export default {
         .catch((err) => console.log(err));
     },
   },
-  mounted() {
-    this.$store.dispatch('getApiPeserta')
+  async mounted() {
+    await this.$store.dispatch('getApiPeserta')
     console.log('mount', this.gettersApiPeserta);
   }
 };

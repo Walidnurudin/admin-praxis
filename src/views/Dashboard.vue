@@ -26,6 +26,9 @@ import navigasi from "@/components/Navigation.vue";
 export default {
   components: {
     navigasi,
+  },
+  async mounted(){
+    await this.$store.dispatch("getApiUsers");
   }
 };
 </script>

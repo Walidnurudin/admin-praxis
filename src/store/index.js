@@ -39,11 +39,24 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    
+    getApiUsers: async function(){
+      const token = localStorage.getItem("Bearer");
+
+      const res = await api.getUsers({
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+
+      console.log(res);
+    }
   },
   actions: {
     getApiPeserta: function ({ commit }) {
       commit('getApiPeserta')
+    },
+    getApiUsers: function({commit}){
+      commit('getApiUsers');
     }
   },
   modules: {
