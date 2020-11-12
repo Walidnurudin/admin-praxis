@@ -38,7 +38,8 @@ export default new Vuex.Store({
           console.log("get api", state.peserta)
         })
         .catch(err => console.log(err))
-    }
+    },
+    
   },
   actions: {
     getApiPeserta: function ({ commit }) {

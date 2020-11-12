@@ -12,19 +12,22 @@
             single-line
             hide-details
           ></v-text-field>
-        </v-card-title>
-
+        </v-card-title>        
         <v-data-table
           :headers="headers"
           :items="gettersApiPeserta"
           :search="search"
         >
           <template v-slot:item.actions="{ item }">
-            <v-icon class="mr-3" @click="deleteItem(item.userId)"
+            <v-icon class="mr-3" @click="detailPeserta(item._id)"
+              >mdi-card-account-details</v-icon
+            >
+            <v-icon class="mr-3" @click="deletePeserta(item._id)"
               >mdi-delete</v-icon
             >
           </template>
         </v-data-table>
+        
       </v-card>
     </v-container>
   </div>
@@ -57,32 +60,42 @@ export default {
     ...mapGetters(["gettersApiPeserta", "gettersCV"]),
   },
   methods: {
-    deleteItem(id) {
-      console.log(id);
+     deletePeserta(id) {
       Swal.fire({
-        title: "Apa kamu yakin ingin menghapus?",
+        title:'Apakah Anda Yakin Menghapus Data Ini?',
         showDenyButton: true,
-        denyButtonText: "ga jadi",
-        confirmButtonText: `Hapus`,
-      }).then((res) => {
-        if (res.isConfirmed) {
-          api
-            .deletePeserta(id, {
-              headers: {
-                Authorization: "Bearer: " + localStorage.getItem("Bearer"),
-              },
-            })
-            .then((res) => {
-              this.$swal({
-                icon: "success",
-                title: "Berhasil dihapus",
-              });
-              console.log(res);
-              this.$store.dispatch("getApiPeserta");
-            })
-            .catch((err) => console.log(err));
+        denyButtonText: 'Batal',
+        confirmButtonText:'Hapus',
+      }).then((res) =>{
+        if(res.isConfirmed){
+          api.deletePeserta({
+            headers:{
+              Authorization:'Bearer '+localStorage.getItem('Bearer')
+            }
+          },id)
+          .then((res)=>{
+            this.$swal({
+              icon:'success',
+              title:'Berhasil Menghapus Data'
+            });
+            console.log(res)
+          })
+          .catch(err =>{
+            this.$swal({
+              icon:'error',
+              title:'Sinyal Error'
+            });
+            console.log(err)
+          })
+          this.$store.dispatch('getApiPeserta')
         }
-      });
+      })
+    },
+    detailPeserta(id){
+      console.log(id)
+      this.$router.push({
+        path: `/peserta/${id}`
+      })
     },
     download(id) {
       console.log(id);
