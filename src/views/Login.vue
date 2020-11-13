@@ -13,8 +13,8 @@
               <v-card-text>
                 <v-form ref="form">
                   <v-text-field
-                    label="Username"
-                    name="username"
+                    label="Email"
+                    name="email"
                     v-model="form.email"
                     prepend-icon="mdi-account"
                     type="text"
