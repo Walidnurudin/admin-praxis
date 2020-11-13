@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: "",
-    peserta: []
+    peserta: [],
+    loading: false
   },
   getters: {
     gettersApiPeserta: function (state) {
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     },
     getApiPeserta: function (state) {
       const token = localStorage.getItem("Bearer");
+      state.loading = true;
 
       api.getPeserta({
         headers: {
@@ -36,8 +38,12 @@ export default new Vuex.Store({
         .then(data => {
           state.peserta = data.result;
           console.log("get api", state.peserta)
+          state.loading = false;
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log("get api", err);
+          state.loading = false;
+        })
     },
     getApiUsers: async function(){
       const token = localStorage.getItem("Bearer");

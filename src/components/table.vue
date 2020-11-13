@@ -1,7 +1,15 @@
 <template>
   <div>
     <v-container>
-      <v-card>
+      <div class="text-center" v-if="this.loading">
+        <v-progress-circular
+          :size="50"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+
+      <v-card v-else>
         <v-card-title>
           <h3>Dashboard Admin Praxis academy</h3>
           <v-spacer></v-spacer>
@@ -12,7 +20,7 @@
             single-line
             hide-details
           ></v-text-field>
-        </v-card-title>        
+        </v-card-title>
         <v-data-table
           :headers="headers"
           :items="gettersApiPeserta"
@@ -27,7 +35,6 @@
             >
           </template>
         </v-data-table>
-        
       </v-card>
     </v-container>
   </div>
@@ -56,44 +63,51 @@ export default {
   },
   computed: {
     ...mapGetters(["gettersApiPeserta", "gettersCV"]),
+    loading: function () {
+      return this.$store.state.loading;
+    },
   },
   methods: {
-     deletePeserta(id) {
+    deletePeserta(id) {
       Swal.fire({
-        title:'Apakah Anda Yakin Menghapus Data Ini?',
+        title: "Apakah Anda Yakin Menghapus Data Ini?",
         showDenyButton: true,
-        denyButtonText: 'Batal',
-        confirmButtonText:'Hapus',
-      }).then((res) =>{
-        if(res.isConfirmed){
-          api.deletePeserta({
-            headers:{
-              Authorization:'Bearer '+localStorage.getItem('Bearer')
-            }
-          },id)
-          .then((res)=>{
-            this.$swal({
-              icon:'success',
-              title:'Berhasil Menghapus Data'
+        denyButtonText: "Batal",
+        confirmButtonText: "Hapus",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          api
+            .deletePeserta(
+              {
+                headers: {
+                  Authorization: "Bearer " + localStorage.getItem("Bearer"),
+                },
+              },
+              id
+            )
+            .then((res) => {
+              this.$swal({
+                icon: "success",
+                title: "Berhasil Menghapus Data",
+              });
+              console.log(res);
+            })
+            .catch((err) => {
+              this.$swal({
+                icon: "error",
+                title: "Sinyal Error",
+              });
+              console.log(err);
             });
-            console.log(res)
-          })
-          .catch(err =>{
-            this.$swal({
-              icon:'error',
-              title:'Sinyal Error'
-            });
-            console.log(err)
-          })
-          this.$store.dispatch('getApiPeserta')
+          this.$store.dispatch("getApiPeserta");
         }
-      })
+      });
     },
-    detailPeserta(id){
-      console.log(id)
+    detailPeserta(id) {
+      console.log(id);
       this.$router.push({
-        path: `/peserta/${id}`
-      })
+        path: `/peserta/${id}`,
+      });
     },
     download(id) {
       console.log(id);
@@ -115,9 +129,9 @@ export default {
         .catch((err) => console.log(err));
     },
   },
-  async mounted() {
-    await this.$store.dispatch('getApiPeserta')
-    console.log('mount', this.gettersApiPeserta);
-  }
+  mounted() {
+    this.$store.dispatch("getApiPeserta");
+    console.log(this.loading);
+  },
 };
 </script>
