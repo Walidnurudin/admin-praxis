@@ -1,12 +1,19 @@
 <template>
-  <v-container>
-    <v-row class="mt-16">
-      <v-col>
-        <v-card max-width="600">
-          <v-card-text>
-            <div>
-              <navigasi />
-              <v-container>
+  <div>
+    <navigasi />
+    <div class="text-center mt-16" v-if="this.loading">
+      <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    <v-container v-else>
+      <v-row class="mt-16">
+        <v-col>
+          <v-card max-width="600">
+            <v-card-text>
+              <div>
                 <h1>DATA DIRI</h1>
                 <br />
                 <h3>nama:</h3>
@@ -25,17 +32,14 @@
                 <span>{{ detailPeserta.kotaAsal }}</span>
                 <h3>Media Sosial:</h3>
                 <span>{{ detailPeserta.mediaSosial }}</span>
-              </v-container>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card max-width="600">
-          <v-card-text>
-            <div>
-              <navigasi />
-              <v-container>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card max-width="600">
+            <v-card-text>
+              <div>
                 <h1>Data Praxis Academy</h1>
                 <br />
                 <h3>Program:</h3>
@@ -52,19 +56,16 @@
                 <span>{{ detailPeserta.referensi }}</span>
                 <h3>Mengetahui Bootcamp:</h3>
                 <span>{{ detailPeserta.bootCamp }}</span>
-              </v-container>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-card max-width="600">
-          <v-card-text>
-            <div>
-              <navigasi />
-              <v-container>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-card max-width="600">
+            <v-card-text>
+              <div>
                 <h1>Pendidikan</h1>
                 <br />
                 <h3>Nama Kampus:</h3>
@@ -75,27 +76,24 @@
                 <span>{{ detailPeserta.semester }}</span>
                 <h3>Alamat Kampus:</h3>
                 <span>{{ detailPeserta.alamatKampus }}</span>
-              </v-container>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card max-width="600">
-          <v-card-text>
-            <div>
-              <navigasi />
-              <v-container>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card max-width="600">
+            <v-card-text>
+              <div>
                 <h1>Daftar Riwayat Hidup</h1>
                 <br />
                 <v-img :src="detailPeserta.uploadedFiles" width="500px"></v-img>
-              </v-container>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -106,6 +104,7 @@ export default {
   data() {
     return {
       detailPeserta: [],
+      loading: false,
     };
   },
   components: {
@@ -113,6 +112,7 @@ export default {
   },
   methods: {
     getApiPesertaDetail: function (id) {
+      this.loading = true;
       const tt = localStorage.getItem("Bearer");
 
       api
@@ -126,9 +126,11 @@ export default {
         })
         .then((res) => {
           this.detailPeserta = res;
+          this.loading = false;
         })
         .catch((err) => {
           console.log(err);
+          this.loading = false;
         });
     },
   },
