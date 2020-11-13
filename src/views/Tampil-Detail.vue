@@ -8,9 +8,10 @@
         indeterminate
       ></v-progress-circular>
     </div>
+
     <v-container v-else>
       <v-row class="mt-16">
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-card max-width="600">
             <v-card-text>
               <div>
@@ -36,7 +37,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-card max-width="600">
             <v-card-text>
               <div>
@@ -62,7 +63,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-card max-width="600">
             <v-card-text>
               <div>
@@ -80,7 +81,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col>
+        <v-col cols="12" sm="6">
           <v-card max-width="600">
             <v-card-text>
               <div>
